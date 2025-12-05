@@ -31,6 +31,7 @@ export default function InitialSection(props: {
   const [personTitleList, setPersonTitleList] = useState<any[]>([]);
   const [gradeLevelList, setGradeLevelList] = useState<any[]>([]);
   const [branchList, setBranchList] = useState<any[]>([]);
+  const [examTypeList, setExamTypeList] = useState<any[]>([]);
 
   // 🔹 API setup
   const [createStudentTrigger] =
@@ -43,8 +44,12 @@ export default function InitialSection(props: {
 
   const [getGradeLevelListDataTrigger] =
     programManagementApi.endpoints.getGradeLevelSelectListDataState.useLazyQuery();
+
   const [getBranchSelectListDataTrigger] =
     generalEntityManagementApi.endpoints.getBranchSelectListDataStste.useLazyQuery();
+
+  const [getExamTypeSelectListDataTrigger] =
+    generalEntityManagementApi.endpoints.getExamTypeSelectListDataStste.useLazyQuery();
 
   // 🔹 Form schema
   const initialSectionFormSchema = z.object({
@@ -54,6 +59,7 @@ export default function InitialSection(props: {
     gender: z.string().min(1, { message: "Required" }),
     grade_level: z.int().min(1, { message: "Required" }),
     branch: z.int().min(1, { message: "Required" }),
+    exam_type: z.int().min(1, { message: "Required" }),
   });
   type InitialSectionFormType = z.infer<typeof initialSectionFormSchema>;
 
@@ -83,6 +89,10 @@ export default function InitialSection(props: {
           ? props.initialData.branch_id
           : 0,
       //date_of_birth: undefined,
+      exam_type:
+        props.initialData && props.initialData?.exam_type
+          ? props.initialData.exam_type
+          : 0,
     },
   });
 
@@ -98,6 +108,7 @@ export default function InitialSection(props: {
           gender: data.gender,
           grade_level_id: data.grade_level,
           branch_id: data.branch,
+          exam_type_id: data.exam_type,
         }).unwrap();
 
         toast.success("Student created successfully!");
@@ -110,6 +121,7 @@ export default function InitialSection(props: {
           grade_level_id: data.grade_level,
           branch_id: data.branch,
           //date_of_birth: data.date_of_birth.toISOString(),
+          exam_type_id: data.exam_type,
         }).unwrap();
 
         toast.success("Student updated successfully!");
@@ -147,6 +159,13 @@ export default function InitialSection(props: {
     getBranchSelectListDataTrigger({ page_size: 10, page: 1 })
       .unwrap()
       .then((res: any) => setBranchList(res.data.data || []))
+      .catch(
+        () => ""
+        // TToast({ label: "Error", description: "Failed to load grade levels" })
+      );
+    getExamTypeSelectListDataTrigger({ page_size: 10, page: 1 })
+      .unwrap()
+      .then((res: any) => setExamTypeList(res.data.data || []))
       .catch(
         () => ""
         // TToast({ label: "Error", description: "Failed to load grade levels" })
@@ -263,6 +282,32 @@ export default function InitialSection(props: {
                     </div>
 
                     <div className="flex flex-row w-full gap-[8px]">
+                      {/* BRANCH */}
+                      <div id="branch_wrapper" className="w-[50%] mt-[16px]">
+                        <Controller
+                          control={initialSectionForm.control}
+                          name="branch"
+                          render={({ field }) => (
+                            <TSelect
+                              className="w-full"
+                              label="Branch"
+                              id="branch"
+                              dalalist={branchList}
+                              placeholder="Select Branch"
+                              defaultValue={branchList.find(
+                                (item) =>
+                                  item.id === props.initialData?.branch_id
+                              )}
+                              onChange={(val) => field.onChange(val.id)}
+                              error={
+                                initialSectionForm.formState.errors.branch
+                                  ?.message
+                              }
+                            />
+                          )}
+                        />
+                      </div>
+
                       {/* BRANCH */}
                       <div id="branch_wrapper" className="w-[50%] mt-[16px]">
                         <Controller
