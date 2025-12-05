@@ -1,0 +1,33 @@
+Frontend Deployment Process
+1. after completing 1 feature - git checkout yohan && git pull origin main && git push origin yohan
+2. create PR
+3. merge PR
+4. switch to main git branch (select stash and switch option - give your name as comment)
+5. git pull origin main
+6. in VSCode go to output tab and select SFTP log
+7. Ctrl+Shift+P (command pallet) -> select SFTP LOCAL TO REMOTE -> enter
+8. after SFTP complete, you can check if you want - go to vscode left sidebar SFTP Tab and check files are there
+9. switch to Yohan branch (VSCODE bottom left button)
+10. in terminal run this command - git stash pop
+======== Now we compile in server ====================
+11. log in to bitvise (ABC Profile - host:82.112.254.107 password: M@SWZMNqUfuffcE3)
+12. open New Terminal Console
+13. run this command: su - sysadmin
+14. run this command: cd /var/www/toyar/paper-class-app-desktop.toyar.lk/public
+15. run this command: yarn build
+16. run this command: pm2 restart PaperClassAppDesktop
+17. open nexis_college_sms_staging database in navicat
+18. run the query - APPLY SYSTEM UPDATE 
+
+
+Backend Deployment Process
+1. after completing 1 feature - git checkout yohan && git pull origin main && git push origin yohan
+2. create PR
+3. merge PR
+4. switch to main git branch (select stash and switch option - give your name as comment)
+5. git pull origin main
+6. in VSCode go to output tab and select SFTP log
+7. Ctrl+Shift+P (command pallet) -> select SFTP LOCAL TO REMOTE -> enter
+8. after SFTP complete, you can check if you want - go to vscode left sidebar SFTP Tab and check files are there
+9. switch to Yohan branch (VSCODE bottom left button)
+10. in terminal run this command - git stash pop

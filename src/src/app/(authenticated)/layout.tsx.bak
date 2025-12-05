@@ -1,0 +1,39 @@
+"use client";
+import TFooter from "@/components/tfooter";
+import THeaderAuthenticated from "@/components/theader-authenticated";
+import { useAppSelector } from "@/lib/state-store-hooks";
+import { redirect, useRouter } from "next/navigation";
+
+export default function AuthenticatedLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const router = useRouter();
+  const isAuthenticated = useAppSelector((state) => state.app.isAuthenticated);
+  if (!isAuthenticated) {
+    redirect("/sign-in");
+  }
+
+  return (
+    <>
+      {isAuthenticated && (
+        <>
+          <THeaderAuthenticated />
+          <div className="min-h-[calc(100vh-144px)] px-[64px] py-[32px] bg-background text-foreground">
+            {children}
+          </div>
+          <TFooter />
+        </>
+      )}
+      {!isAuthenticated && (
+        <>
+          <div className="min-h-[calc(100vh-144px)] px-[64px] py-[32px] bg-background text-foreground">
+            {children}
+          </div>
+          <TFooter />
+        </>
+      )}
+    </>
+  );
+}

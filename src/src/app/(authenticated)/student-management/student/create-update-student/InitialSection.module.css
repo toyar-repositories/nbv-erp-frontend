@@ -1,0 +1,15 @@
+.my_error_label {
+  color: hsl(0 0% 0% / 1) !important;
+}
+.my_error_input_wrapper,
+.my_error_input_wrapper:hover,
+.my_error_input_wrapper:focus,
+.my_error_input_wrapper:active {
+  color: hsl(0 0% 0% / 1) !important;
+  cursor: hsl(0 0% 0% / 1) !important;
+  background: hsl(240deg 5.88% 90% / 60%) !important;
+}
+
+.my_error_message {
+  color: #f97f87;
+}
