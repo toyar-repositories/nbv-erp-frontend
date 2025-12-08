@@ -40,6 +40,18 @@ export const generalEntityManagementApi = apiServer1
           },
         }),
       }),
+      getExamTypeSelectListDataStste: build.query({
+        query: (payload) => ({
+          url: "api/general-entity-management/exam-type/get-exam-type-select-list-data",
+          method: "POST",
+          body: payload,
+          prepareHeaders: async (headers: any, api: any) => {
+            headers.set("Content-Type", "application/json; charset=UTF-8");
+            headers.set("Accept", "application/json");
+            return headers;
+          },
+        }),
+      }),
     }),
   });
 
