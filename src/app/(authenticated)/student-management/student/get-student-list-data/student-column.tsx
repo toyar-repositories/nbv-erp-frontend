@@ -21,10 +21,18 @@ export default function StudentColumn(props: { row: any }) {
           <div className="w-full">
             <div className="flex flex-row w-full h-full justify-between items-center pr-[32px]">
               <div className="flex flex-col w-full">
-                <div className="flex flex-row w-full gap-[8px] items-center">
+                <div className="flex flex-row w-full gap-[8px] items-center gap-[24px]">
                   <div className="text-[14px] text-[#484848] font-[600]">
                     {row.original.full_name_with_title}
                   </div>
+                  {(row.original?.exam_type?.name ||
+                    row.original?.exam_type?.code) && (
+                    <div className="border rounded-[8px] p-[4px] border-solid border-[#ddd] text-[11px] bg-[#f7f7f7]">
+                      {row.original?.exam_type?.name}
+                      {row.original?.exam_type?.code &&
+                        ` - ${row.original.exam_type.code}`}
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-row w-full gap-[24px] items-start mt-[8px]">
                   <div className="flex flex-col w-[100px] items-start">
@@ -51,6 +59,7 @@ export default function StudentColumn(props: { row: any }) {
                       {row.original?.branch.name}
                     </div>
                   </div>
+
                   <div className="flex flex-col w-[50px] items-start">
                     <div className="text-[#9d9d9d] font-[600] text-[11px] mb-[-3px]">
                       Grade
