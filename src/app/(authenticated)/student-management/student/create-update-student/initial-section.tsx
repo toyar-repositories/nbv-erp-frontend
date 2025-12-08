@@ -308,25 +308,25 @@ export default function InitialSection(props: {
                         />
                       </div>
 
-                      {/* BRANCH */}
-                      <div id="branch_wrapper" className="w-[50%] mt-[16px]">
+                      {/* EXAM TYPE */}
+                      <div id="exam_type_wrapper" className="w-[50%] mt-[16px]">
                         <Controller
                           control={initialSectionForm.control}
-                          name="branch"
+                          name="exam_type"
                           render={({ field }) => (
                             <TSelect
                               className="w-full"
-                              label="Branch"
-                              id="branch"
-                              dalalist={branchList}
-                              placeholder="Select Branch"
-                              defaultValue={branchList.find(
+                              label="Exam Type"
+                              id="exam_type"
+                              dalalist={examTypeList}
+                              placeholder="Select Exam Type"
+                              defaultValue={examTypeList.find(
                                 (item) =>
-                                  item.id === props.initialData?.branch_id
+                                  item.id === props.initialData?.exam_type_id
                               )}
                               onChange={(val) => field.onChange(val.id)}
                               error={
-                                initialSectionForm.formState.errors.branch
+                                initialSectionForm.formState.errors.exam_type
                                   ?.message
                               }
                             />
