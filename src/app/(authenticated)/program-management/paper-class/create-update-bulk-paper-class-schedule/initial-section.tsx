@@ -27,6 +27,7 @@ export default function InitialSection(props: {
   const [isLoading, setIsLoading] = useState(false);
   const [branchlList, setBranchList] = useState<any[]>([]);
   const [classRoomlList, setClassRoomList] = useState<any[]>([]);
+  const [examTypeList, setExamTypeList] = useState<any[]>([]);
   const [lecturerTimeScheduleList, setLecturerTimeScheduleList] = useState<
     any[]
   >([]);
@@ -38,6 +39,8 @@ export default function InitialSection(props: {
     generalEntityManagementApi.endpoints.getBranchSelectListDataStste.useLazyQuery();
   const [getClassRoomListDataTrigger] =
     generalEntityManagementApi.endpoints.getClassRoomSelectListDataStste.useLazyQuery();
+  const [getExamTypeListDataTrigger] =
+    generalEntityManagementApi.endpoints.getExamTypeSelectListDataStste.useLazyQuery();
   const [getLecturerTimeScheduleListDataTrigger] =
     lecturerManagementApi.endpoints.getLecturerTimeScheduleSelectListDataStste.useLazyQuery();
 
@@ -45,6 +48,7 @@ export default function InitialSection(props: {
   const initialSectionFormSchema = z.object({
     branch: z.int().min(1, { message: "Required" }),
     class_room: z.int().min(1, { message: "Required" }),
+    exam_type: z.int().min(1, { message: "Required" }),
     lecturer_time_schedule: z.int().min(1, { message: "Required" }),
     class_start_date: z.date().min(1, { message: "Required" }),
     class_end_date: z.date().min(1, { message: "Required" }),
@@ -58,6 +62,7 @@ export default function InitialSection(props: {
     defaultValues: {
       branch: 0,
       class_room: 0,
+      exam_type: 0,
       lecturer_time_schedule: 0,
       class_start_date: new Date(),
       class_end_date: new Date(),
@@ -72,6 +77,7 @@ export default function InitialSection(props: {
       const formData = new FormData();
       formData.append("branch_id", data.branch.toString());
       formData.append("class_room_id", data.class_room.toString());
+      formData.append("exam_type_id", data.exam_type.toString());
       formData.append(
         "lecturer_time_schedule_id",
         data.lecturer_time_schedule.toString()
@@ -122,7 +128,40 @@ export default function InitialSection(props: {
                           <div
                             className={cn("flex w-full gap-[8px] mt-[12px]")}
                           >
-                            <div id="branch_wrapper" className="w-[50%] ">
+                            <div id="exam_type_wrapper" className="w-[50%] ">
+                              <Controller
+                                control={initialSectionForm.control}
+                                name="exam_type"
+                                render={({ field }) => (
+                                  <TSelect
+                                    className="w-full"
+                                    label="Exam Type"
+                                    id="exam_type"
+                                    dalalist={examTypeList}
+                                    placeholder="Select Exam Type"
+                                    // defaultValue={field.value}
+                                    onChange={(val) => field.onChange(val.id)}
+                                    error={
+                                      initialSectionForm.formState.errors
+                                        .exam_type?.message
+                                    }
+                                    onOpen={() => {
+                                      getExamTypeListDataTrigger({
+                                        search_filter_list: {
+                                          is_active: true,
+                                        },
+                                      })
+                                        .unwrap()
+                                        .then((res: any) =>
+                                          setExamTypeList(res.data.data || [])
+                                        )
+                                        .catch(() => "");
+                                    }}
+                                  />
+                                )}
+                              />
+                            </div>
+                            <div id={cn("branch_wrapper")} className="w-[50%] ">
                               <Controller
                                 control={initialSectionForm.control}
                                 name="branch"

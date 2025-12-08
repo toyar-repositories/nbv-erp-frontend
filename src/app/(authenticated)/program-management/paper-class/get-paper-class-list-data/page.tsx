@@ -293,7 +293,7 @@ export default function DigitalTransformationPage() {
       <div className="flex w-full justify-start items-center mt-[8px]">
         <div className="font-[600] ml-[4px]">Paper Class</div>
 
-        <div className="ml-[16px]">
+        {/* <div className="ml-[16px]">
           <TButton
             variant="outline"
             type="button"
@@ -305,7 +305,7 @@ export default function DigitalTransformationPage() {
           >
             Add New Paper Class
           </TButton>
-        </div>
+        </div> */}
         <div className="ml-[16px]">
           <TButton
             variant="outline"
