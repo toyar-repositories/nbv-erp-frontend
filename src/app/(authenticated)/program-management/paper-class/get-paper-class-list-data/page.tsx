@@ -83,6 +83,9 @@ export default function DigitalTransformationPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [completedPaperClassCount, setCompletedPaperClassCount] = useState(0);
+  const [notCompletedPaperClassCount, setNotCompletedPaperClassCount] =
+    useState(0);
   // keys
   const [createUpdatePaperClassKey, setCreateUpdatePaperClassKey] = useState(
     +new Date()
@@ -193,6 +196,12 @@ export default function DigitalTransformationPage() {
           setLecturerList(fulfilled.data.lecturer_list_count);
           setGroupFilterList2(fulfilled.data.paper_class_period_count);
           setGroupFilterList(fulfilled.data.paper_class_count);
+          setCompletedPaperClassCount(
+            fulfilled.data.completed_paper_class_count
+          );
+          setNotCompletedPaperClassCount(
+            fulfilled.data.not_Completed_paper_class_count
+          );
         } else {
           // console.warn("No data found in response");
           setPaperClassList([]);
@@ -232,6 +241,12 @@ export default function DigitalTransformationPage() {
             setLecturerList(fulfilled.data.lecturer_list_count);
             setGroupFilterList2(fulfilled.data.paper_class_period_count);
             setGroupFilterList(fulfilled.data.paper_class_count);
+            setCompletedPaperClassCount(
+              fulfilled.data.completed_paper_class_count
+            );
+            setNotCompletedPaperClassCount(
+              fulfilled.data.not_completed_paper_class_count
+            );
           } else {
             // console.warn("No data found in response");
             setPaperClassList([]);
@@ -265,6 +280,12 @@ export default function DigitalTransformationPage() {
           // setLecturerList(fulfilled.data.lecturer_list_count);
           setGroupFilterList2(fulfilled.data.paper_class_period_count);
           setGroupFilterList(fulfilled.data.paper_class_count);
+          setCompletedPaperClassCount(
+            fulfilled.data.completed_paper_class_count
+          );
+          setNotCompletedPaperClassCount(
+            fulfilled.data.not_completed_paper_class_count
+          );
         } else {
           setPaperClassList([]);
         }
@@ -333,7 +354,7 @@ export default function DigitalTransformationPage() {
               setGroupFilter(value);
             }}
           >
-            <TabsList className="flex flex-col gap-[8px] bg-[#d8ecff] mt-[125px] py-[8px] px-[18px] border-none">
+            <TabsList className="flex flex-col gap-[8px] bg-[#d8ecff] mt-[170px] py-[8px] px-[18px] border-none">
               <TabsTrigger
                 key="All"
                 value="All"
@@ -360,7 +381,61 @@ export default function DigitalTransformationPage() {
                   </Chip>
                 )}
               </TabsTrigger>
-              <div className="w-full">
+              <TabsTrigger
+                key="Completed"
+                value="Completed"
+                className="w-full flex flex-row justify-between px-[8px] py-[1px] cursor-pointer text-[#686868] mt-[4px]"
+              >
+                <div className="ml-[2px]">Completed Paper Classes</div>
+                {completedPaperClassCount === null ||
+                completedPaperClassCount === 0 ? (
+                  <Chip
+                    variant="light"
+                    radius="lg"
+                    size="sm"
+                    className={cn("ml-[56px] text-[12px]")}
+                  >
+                    0
+                  </Chip>
+                ) : (
+                  <Chip
+                    variant="light"
+                    radius="lg"
+                    size="sm"
+                    className={cn("ml-[56px] text-[12px]")}
+                  >
+                    {completedPaperClassCount}
+                  </Chip>
+                )}
+              </TabsTrigger>
+              <TabsTrigger
+                key="NotCompleted"
+                value="NotCompleted"
+                className="w-full flex flex-row justify-between px-[8px] py-[1px] cursor-pointer text-[#686868] mt-[4px]"
+              >
+                <div className="ml-[2px]">Not Completed Paper Classes</div>
+                {notCompletedPaperClassCount === null ||
+                notCompletedPaperClassCount === 0 ? (
+                  <Chip
+                    variant="light"
+                    radius="lg"
+                    size="sm"
+                    className={cn("ml-[56px] text-[12px]")}
+                  >
+                    0
+                  </Chip>
+                ) : (
+                  <Chip
+                    variant="light"
+                    radius="lg"
+                    size="sm"
+                    className={cn("ml-[56px] text-[12px]")}
+                  >
+                    {notCompletedPaperClassCount}
+                  </Chip>
+                )}
+              </TabsTrigger>
+              <div className="w-full mt-[16px]">
                 <div className="flex w-full">
                   <div className="text-[#686868] text-[14px] ml-[8px] mb-[0] p-[0] pt-[8px]">
                     Period
@@ -496,6 +571,8 @@ export default function DigitalTransformationPage() {
                     page_size: PAGE_SIZE,
                     page,
                     search_phrase: searchPhrase,
+                    search_filter_list: SEARCH_FILTER_LIST,
+                    group_filter: groupFilter,
                   })
                     .unwrap()
                     .then((fulfilled) => setPaperClassList(fulfilled.data.data))
