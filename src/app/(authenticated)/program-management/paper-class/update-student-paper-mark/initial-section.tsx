@@ -172,7 +172,7 @@ export default function InitialSection(props: {
             )}
           >
             {/* 🔍 Search Bar */}
-            {/* <div className="flex flex-row w-full gap-[8px] items-center border-b border-[#eee] pb-[8px]">
+            <div className="flex flex-row w-full gap-[8px] items-center border-b border-[#eee] pb-[8px]">
               <div className="relative w-[300px] my-[8px]">
                 <Search className="absolute left-2 top-2.5 w-4 h-4 text-gray-400" />
                 <input
@@ -187,7 +187,8 @@ export default function InitialSection(props: {
                 Showing {filteredStudentList.length} of{" "}
                 {paperClassStudentEnrolmentListData.length}
               </div>
-            </div> */}
+              <div>hi</div>
+            </div>
             {/* Header */}
             {paperClassStudentEnrolmentListData.length > 0 ? (
               <div className="flex flex-row w-full gap-[8px] items-center border-b border-[#eee] pb-[8px]">
@@ -239,9 +240,9 @@ export default function InitialSection(props: {
             )}
 
             {/* Student rows */}
-            {filteredStudentList.map((studentEnrolment, index) => (
+            {filteredStudentList.map((studentEnrolment) => (
               <div
-                key={index}
+                key={studentEnrolment.id}
                 className="flex flex-row w-full gap-[8px] items-center border-b border-[#eee] pb-[8px]"
               >
                 <div className="text-[14px] w-[45%] text-[#484848] font-[600] tracking-[1px]">
@@ -255,7 +256,7 @@ export default function InitialSection(props: {
                   <Switch
                     size="sm"
                     color="primary"
-                    isSelected={studentEnrolment.is_present}
+                    isSelected={studentEnrolment.is_present ?? false}
                     onValueChange={(checked) => {
                       const updatedList =
                         paperClassStudentEnrolmentListData.map((item) =>
