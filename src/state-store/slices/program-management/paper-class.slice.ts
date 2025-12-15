@@ -17,6 +17,7 @@ type paperClassSliceType = {
   uploadMarkingScheme: any;
   uploadLectureRecording: any;
   isCompletedPaperClassDialogOpenStateStore: boolean;
+  isStudentSubjectEnrolmentCreateDialogOpenStateStore: boolean;
 };
 
 const paperClassSlice = createSlice({
@@ -37,7 +38,8 @@ const paperClassSlice = createSlice({
     uploadMarkPaper: null,
     uploadMarkingScheme: null,
     uploadLectureRecording: null,
-    isCompletedPaperClassDialogOpenStateStore: false
+    isCompletedPaperClassDialogOpenStateStore: false,
+    isStudentSubjectEnrolmentCreateDialogOpenStateStore: false
   },
   reducers: {
     setIsPaperClassCreateDialogOpenStateStore: (state, action) => {
@@ -64,7 +66,6 @@ const paperClassSlice = createSlice({
     setUploadLectureRecording: (state, action) => {
       state.uploadLectureRecording = action.payload;
     },
-
     setIsUploadOriginalPaperDialogOpenStateStore: (state, action) => {
       state.isUploadOriginalPaperDialogOpenStateStore = action.payload;
     },
@@ -89,6 +90,9 @@ const paperClassSlice = createSlice({
     setIsCompletedPaperClassDialogOpenStateStore: (state, action) => {
       state.isCompletedPaperClassDialogOpenStateStore = action.payload;
     },
+    setIsStudentSubjectEnrolmentCreateDialogOpenStateStore: (state, action) => {
+      state.isStudentSubjectEnrolmentCreateDialogOpenStateStore = action.payload;
+    }
   },
 });
 
@@ -107,6 +111,7 @@ export const { setIsPaperClassCreateDialogOpenStateStore,
   setIsPaperClassViewModeActive,
   setIsViewMarkPaperDialogOpenStateStore,
   setIsCompletedPaperClassDialogOpenStateStore,
+  setIsStudentSubjectEnrolmentCreateDialogOpenStateStore,
   setIsUploadOriginalPaperDialogOpenStateStore } =
   paperClassSlice.actions;
 

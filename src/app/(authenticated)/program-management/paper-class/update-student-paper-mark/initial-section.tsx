@@ -14,11 +14,11 @@ import { toast } from "sonner";
 import TToast from "@/components/form-components/ttoast";
 import { lecturerManagementApi } from "@/api/lecturer-management-api";
 import {
-  setIsBulkPaperClassScheduleDialogOpenStateStore,
   setIsUploadMarkPaperDialogOpenStateStore,
   setIsViewMarkPaperDialogOpenStateStore,
   setUploadMarkPaper,
   setViewMarkPaper,
+  setIsStudentSubjectEnrolmentCreateDialogOpenStateStore,
 } from "@/state-store/slices/program-management/paper-class.slice";
 import { Eye, EyeIcon, Search, Upload, UploadIcon } from "lucide-react";
 import { Switch } from "@nextui-org/react";
@@ -57,7 +57,6 @@ export default function InitialSection(props: {
   });
 
   type InitialSectionFormType = z.infer<typeof initialSectionFormSchema>;
-
   // useForm
   const initialSectionForm = useForm<any>({
     resolver: zodResolver(initialSectionFormSchema),
@@ -187,7 +186,25 @@ export default function InitialSection(props: {
                 Showing {filteredStudentList.length} of{" "}
                 {paperClassStudentEnrolmentListData.length}
               </div>
-              <div>hi</div>
+              <div></div>
+              <div className="w-[15%]">
+                <TButton
+                  variant="outline"
+                  type="button"
+                  id="add-student"
+                  className="ml-[16px] flex items-center justify-center gap-2 cursor-pointer"
+                  // disabled={studentEnrolment.is_present === true ? false : true}
+                  onClick={() => {
+                    dispatch(
+                      setIsStudentSubjectEnrolmentCreateDialogOpenStateStore(
+                        true
+                      )
+                    );
+                  }}
+                >
+                  Add Student
+                </TButton>
+              </div>
             </div>
             {/* Header */}
             {paperClassStudentEnrolmentListData.length > 0 ? (

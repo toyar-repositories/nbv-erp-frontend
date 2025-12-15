@@ -171,6 +171,22 @@ export const programManagementApi = apiServer1
           };
         },
       }),
+      paperClassAddSingleStudent: build.mutation<any, any>({
+        query(data: any) {
+          return {
+            url: "api/program-management/paper-class-student-enrolment/paper-class-add-single-student",
+            method: "POST",
+            body: data,
+            credentials: "include",
+            headers: {
+              "X-Requested-With": "XMLHttpRequest",
+              // ❌ REMOVE THIS:
+              // "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          };
+        },
+      }),
 
       createStudentReport: build.mutation<any, any>({
         query(data: any) {
