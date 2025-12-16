@@ -93,7 +93,7 @@ export default function InitialSection(props: {
         // TToast({ label: "Error", description: "Failed to load titles" })
       );
   }, []);
-  console.log(studentList);
+
   return (
     <>
       <div className="w-full mt-[8px]">

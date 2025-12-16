@@ -20,6 +20,7 @@ import {
   setIsUploadLectureRecordingDialogOpenStateStore,
   setIsUploadMarkingSchemeDialogOpenStateStore,
   setIsCompletedPaperClassDialogOpenStateStore,
+  setIsStudentSubjectEnrolmentCreateDialogOpenStateStore,
 } from "@/state-store/slices/program-management/paper-class.slice";
 import {
   Dialog,
@@ -55,6 +56,7 @@ import { setIsPaperCreateDialogOpenStateStore } from "@/state-store/slices/progr
 import CreateUpdatePaper from "@/app/(authenticated)/program-management/paper/create-update-paper/page";
 import UploadMarkingScheme from "@/app/(authenticated)/program-management/paper-class/upload-marking-scheme/page";
 import TToast from "@/components/form-components/ttoast";
+import CreateStudentSubjectEnrolment from "@/app/(authenticated)/program-management/paper-class/create-student-subject-enrolment/page";
 
 ////////// USE STATE /////////////////////////////////////////////////
 
@@ -164,6 +166,10 @@ export default function DigitalTransformationPage() {
       state.paperClass.isCompletedPaperClassDialogOpenStateStore
   );
 
+  const isStudentSubjectEnrolmentCreateDialogOpenStateStore = useAppSelector(
+    (state: RootState) =>
+      state.paperClass.isStudentSubjectEnrolmentCreateDialogOpenStateStore
+  );
   /////////////////////USE EFFECT ////////////////////////////////////
   useEffect(() => {
     setLoading(false);
@@ -916,6 +922,54 @@ export default function DigitalTransformationPage() {
         </Dialog>
       </div>
       {/* Dialog End */}
+
+      {/* Dialog Add single student */}
+      <div
+        className={cn(isSaving ? "pointer-events-none" : "pointer-events-none")}
+      >
+        <Dialog
+          open={isStudentSubjectEnrolmentCreateDialogOpenStateStore}
+          aria-modal="true"
+        >
+          <DialogPortal>
+            <DialogOverlay className={cn("bg-black/20")} />
+            <DialogContent className="outline-none border-none min-w-[150px] max-w-[150px] px-[0] pb-[0] pointer-events-none">
+              <DialogTitle className="hidden"></DialogTitle>
+              <DialogDescription className="hidden"></DialogDescription>
+              {/*  */}
+              <div className="flex flex-row w-full justify-between items-center px-[32px]">
+                <div className="font-[600] ml-[4px]">Add Student Enrolment</div>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    dispatch(
+                      setIsStudentSubjectEnrolmentCreateDialogOpenStateStore(
+                        false
+                      )
+                    );
+                  }}
+                >
+                  <XIcon />
+                </div>
+              </div>
+              <div className="bg-[#fafafa] w-full h-full px-[32px] rounded-b-[8px]">
+                <CreateStudentSubjectEnrolment
+                  key={createUploadOriginalPaperKey}
+                  initialData={uploadOriginalPaper}
+                  setIsDialogOpen={
+                    setIsStudentSubjectEnrolmentCreateDialogOpenStateStore
+                  }
+                  setIsSaving={setIsSaving}
+                  setReloadData={setReloadData}
+                  setReloadDataCausedByData={setReloadDataCausedByData}
+                />
+              </div>
+            </DialogContent>
+          </DialogPortal>
+        </Dialog>
+      </div>
+      {/* Dialog End */}
+
       {/* Dialog Upload Marking Scheme */}
       <div
         className={cn(isSaving ? "pointer-events-none" : "pointer-events-none")}
